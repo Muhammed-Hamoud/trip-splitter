@@ -1,20 +1,20 @@
-import { ActionIcon, Avatar, Badge, Button, Group, Select, Table, Text } from "@mantine/core";
-import { Subscribers } from "../page";
+import { ActionIcon,Group, Table, Text } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
+import "../globals.css";
+import { Subscribers } from "../page";
+
 
 type Subscriber = {
   data: Subscribers[];
   deleteSubscriber: (index: string)=> void;
-  total:()=>void
 };
 
-export function SubscribersTable({ data,deleteSubscriber,total }: Subscriber) {
+export function SubscribersTable({ data,deleteSubscriber }: Subscriber) {
   console.log(data.map((s=>s.balance)))
   const rows = data.map((item) => (
     <Table.Tr key={item.name}>
       <Table.Td>
         <Group gap="sm">
-          {/* <Avatar size={40} src={item.avatar} radius={40} /> */}
           <Text fz="sm" fw={500}>
             {item.name}
           </Text>
@@ -27,7 +27,6 @@ export function SubscribersTable({ data,deleteSubscriber,total }: Subscriber) {
       </Table.Td>
       <Table.Td>
         <Text fz="sm" fw={500}>
-          {/* {!item.paidAmount ? "ما دفع المنغولي" : item.paidAmount} */}
           {item.balance !== undefined && item.balance > 0 && item.balance}
         </Text>
       </Table.Td>
@@ -53,11 +52,9 @@ export function SubscribersTable({ data,deleteSubscriber,total }: Subscriber) {
       <Table.Thead className="bg-[#916666] text-[#5d1c1c]">
         <Table.Tr>
           <Table.Th ta="right"> المشترك </Table.Th>
-          <Table.Th ta="right"> المبلغ المدفوع </Table.Th>
-          <Table.Th ta="right"> المبلغ يلي له يدفعه </Table.Th>
-          <Table.Th ta="right"> المبلغ يلي له يرجعله </Table.Th>
-          {/* <Table.Th>Last active</Table.Th>
-            <Table.Th>Status</Table.Th> */}
+          <Table.Th ta="right"> المدفوع </Table.Th>
+          <Table.Th ta="right"> له </Table.Th>
+          <Table.Th ta="right"> عليه </Table.Th>
         </Table.Tr>
       </Table.Thead>
       <Table.Tbody>{rows}</Table.Tbody>

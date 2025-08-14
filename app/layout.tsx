@@ -28,7 +28,9 @@ export default function RootLayout({
     <html lang="en">
       <body
         style={{
-          backgroundImage: `url('/pattern.png')`,direction:'rtl'}}
+          backgroundImage: `url('/pattern.png')`,
+          direction: "rtl",
+        }}
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <MantineProvider>
