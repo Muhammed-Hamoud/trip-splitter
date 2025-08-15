@@ -77,7 +77,7 @@ export default function Page() {
       return pre + Number(sub.paidAmount);
     }, 0);
     const perSubscriberPrice =
-      totalPrice === 0 ? 0 : totalPrice / subscribers.length;
+      totalPrice === 0 ? 0 : (Number(totalPrice / subscribers.length).toFixed())
 
     return {
       totalPrice: totalPrice,

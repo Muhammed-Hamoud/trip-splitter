@@ -27,12 +27,12 @@ export function SubscribersTable({ data,deleteSubscriber }: Subscriber) {
       </Table.Td>
       <Table.Td>
         <Text fz="sm" fw={500}>
-          {item.balance !== undefined && item.balance > 0 && item.balance}
+          {item.balance !== undefined && item.balance > 0 && item.balance.toFixed()}
         </Text>
       </Table.Td>
       <Table.Td>
         <Text fz="sm" fw={500}>
-          {item.balance !== undefined && item.balance < 0 && Math.abs(item.balance)}
+          {item.balance !== undefined && item.balance < 0 && Math.abs(item.balance).toFixed()}
         </Text>
       </Table.Td>
       <Table.Td>
@@ -53,8 +53,8 @@ export function SubscribersTable({ data,deleteSubscriber }: Subscriber) {
         <Table.Tr>
           <Table.Th ta="right"> المشترك </Table.Th>
           <Table.Th ta="right"> المدفوع </Table.Th>
-          <Table.Th ta="right"> له </Table.Th>
           <Table.Th ta="right"> عليه </Table.Th>
+          <Table.Th ta="right"> له </Table.Th>
         </Table.Tr>
       </Table.Thead>
       <Table.Tbody>{rows}</Table.Tbody>
