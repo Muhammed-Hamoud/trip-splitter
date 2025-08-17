@@ -30,6 +30,15 @@ export default function Page() {
 
   const phone = useMediaQuery("(max-width: 768px)");
 
+  function recalcBalances(list: Subscribers[]) {
+    const total = list.reduce((sum, sub) => sum + Number(sub.paidAmount), 0);
+    const perSubscriber = list.length > 0 ? total / list.length : 0;
+
+    return list.map((sub) => ({
+      ...sub,
+      balance: perSubscriber - Number(sub.paidAmount),
+    }));
+  }
   function addSubscriber() {
     if (!name) return;
 
@@ -45,31 +54,20 @@ export default function Page() {
       });
       return;
     }
-
-    setSubscribers((prev) => {
-      const newSubscribers = [...prev, { name, paidAmount: amountPaid }];
-
-      const totalPrice = newSubscribers.reduce(
-        (pre, sub) => pre + Number(sub.paidAmount),
-        0
-      );
-      const perSubscriberPrice =
-        totalPrice === 0 ? 0 : totalPrice / newSubscribers.length;
-
-      return newSubscribers.map((sub) => ({
-        ...sub,
-        balance: perSubscriberPrice - Number(sub.paidAmount),
-      }));
-    });
-
+    setSubscribers((prev) =>
+      recalcBalances([...prev, { name, paidAmount: amountPaid }])
+    );
     setName("");
     setAmountPaid("");
   }
 
   function deleteSubscriber(index: string) {
-    setSubscribers(
-      subscribers.filter((subscriber) => subscriber.name !== index)
-    );
+    setSubscribers((prev) => {
+      const newList = subscribers.filter(
+        (subscriber) => subscriber.name !== index
+      );
+      return recalcBalances(newList);
+    });
   }
 
   function totalPrices() {
@@ -77,7 +75,7 @@ export default function Page() {
       return pre + Number(sub.paidAmount);
     }, 0);
     const perSubscriberPrice =
-      totalPrice === 0 ? 0 : (Number(totalPrice / subscribers.length).toFixed())
+      totalPrice === 0 ? 0 : Number(totalPrice / subscribers.length).toFixed();
 
     return {
       totalPrice: totalPrice,
@@ -87,18 +85,13 @@ export default function Page() {
   const { totalPrice, perSubscriberPrice } = totalPrices();
   return (
     <Box h="100vh">
-      <Container >
+      <Container>
         <Title mt="xl" ta="start" mb="lg">
           المجموع: {totalPrice}
         </Title>
         {totalPrice > 0 && (
           <>
-            <Text
-              size={phone ? "h5" : "h1"}
-              mb="md"
-              className={phone ? "text-xs" : "text-xl"}
-            >
-              {" "}
+            <Text size={phone ? "h5" : "h1"} mb="md">
               المبلغ لكل عضو: {perSubscriberPrice}
             </Text>
           </>
@@ -139,6 +132,34 @@ export default function Page() {
           />
         </Box>
       )}
+      <Flex direction="column" justify="center" align="center" m="xs">
+        <Container size="sm" bg="#736c6ce0" bdrs="lg" pr="lg" py='md'>
+          <Text ta="center" fw="700" style={{ fontSize: "25px"}}>
+            موقع خاص بالرحلات والجمعات
+          </Text>
+          <Text>
+            حيث يمكنك تقسيم المبالغ المدفوعة في هذه الرحلة على عدد الاشخاص
+            ومراعاة المبالغ المدفوعة من قبل كل شخص وبالتالي يمكنك الحصول على
+            المبلغ الواجب دفعه او ارجاعه لكل شخص
+          </Text>
+          <ul style={{ listStyleType: "disc" }}>
+            <li>
+              <Text>
+                يمكنك اضافة عضو جديد من خلال اختيار اسمه ودخل مبلغ المدفوع
+              </Text>
+            </li>
+            <li>
+              <Text>
+                في حال المشترك لا يوجد لديه اي مبالغ مدفوعة , فقط اترك حقل
+                "المبلغ المدفوع" فارغا
+              </Text>
+            </li>
+            <li>
+              <Text> يمكنك حذف عضو من خلال اختيار اسمه وضغط على زر حذف </Text>
+            </li>
+          </ul>
+        </Container>
+      </Flex>
     </Box>
   );
 }

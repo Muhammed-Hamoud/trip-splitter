@@ -57,3 +57,10 @@ input::placeholder {
 td {
   background-color: #736c6c !important;
 }
+
+
+@media(max-width:768px){
+  .mantine-Text-root{
+    font-size: 20px;
+  }
+}
