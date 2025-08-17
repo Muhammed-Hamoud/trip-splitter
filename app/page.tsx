@@ -16,6 +16,7 @@ import { notifications } from "@mantine/notifications";
 import { SubscribersTable } from "./components/subscribersTable";
 import "./globals.css";
 import { useMediaQuery } from "@mantine/hooks";
+import Link from "next/link";
 
 export type Subscribers = {
   name: string;
@@ -84,8 +85,8 @@ export default function Page() {
   }
   const { totalPrice, perSubscriberPrice } = totalPrices();
   return (
-    <Box h="100vh">
-      <Container>
+    <Flex h="100vh" direction="column" justify="space-between">
+      <Container w="100%">
         <Title mt="xl" ta="start" mb="lg">
           المجموع: {totalPrice}
         </Title>
@@ -160,6 +161,23 @@ export default function Page() {
           </ul>
         </Container>
       </Flex>
-    </Box>
+      <Text
+        ta="center"
+        w="100%"
+        bg="#736c6ce0"
+        py="5"
+        className="border-t-4 border-[#736c6c]"
+      >
+        Created By:{" "}
+        <Link
+          href="https://muhammed-2004.netlify.app"
+          target="_blank"
+          rel="noreferrer"
+          className="text-blue-700 hover:text-red-200 underline font-medium"
+        >
+          Muhammed Hamoud
+        </Link>{" "}
+      </Text>
+    </Flex>
   );
 }
