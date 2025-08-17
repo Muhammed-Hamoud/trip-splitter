@@ -62,7 +62,7 @@ export default function Page() {
   }
 
   function deleteSubscriber(index: string) {
-    setSubscribers((prev) => {
+    setSubscribers(() => {
       const newList = subscribers.filter(
         (subscriber) => subscriber.name !== index
       );
