@@ -133,8 +133,8 @@ export default function Page() {
         </Box>
       )}
       <Flex direction="column" justify="center" align="center" m="xs">
-        <Container size="sm" bg="#736c6ce0" bdrs="lg" pr="lg" py='md'>
-          <Text ta="center" fw="700" style={{ fontSize: "25px"}}>
+        <Container size="sm" bg="#736c6ce0" bdrs="lg" pr="lg" py="md">
+          <Text ta="center" fw="700" style={{ fontSize: "25px" }}>
             موقع خاص بالرحلات والجمعات
           </Text>
           <Text>
@@ -151,7 +151,7 @@ export default function Page() {
             <li>
               <Text>
                 في حال المشترك لا يوجد لديه اي مبالغ مدفوعة , فقط اترك حقل
-                "المبلغ المدفوع" فارغا
+                المبلغ &quot;المدفوع&quot; فارغا
               </Text>
             </li>
             <li>
